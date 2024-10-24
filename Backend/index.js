@@ -32,6 +32,14 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoute);
 
+// CLOUDINARY
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_SECERET_KEY, // Click 'View API Keys' above to copy your API secret
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
