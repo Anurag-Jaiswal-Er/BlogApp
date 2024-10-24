@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.routes.js";
+import fileUpload from "express-fileupload";
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
@@ -9,6 +10,13 @@ const MongodbUlr = process.env.MONGODB_URL;
 
 // middleware
 app.use(express.json());
+// fileupload
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/temp/",
+  })
+);
 // db connection
 try {
   mongoose.connect(MongodbUlr);
