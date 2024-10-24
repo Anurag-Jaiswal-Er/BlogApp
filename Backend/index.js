@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.routes.js";
 import fileUpload from "express-fileupload";
+import { v2 as cloudinary } from "cloudinary";
 const app = express();
 dotenv.config();
 const port = process.env.PORT;

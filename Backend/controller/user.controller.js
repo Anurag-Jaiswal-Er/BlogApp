@@ -1,11 +1,11 @@
 import { User } from "../models/user.model.js";
-
+import { v2 as cloudinary } from "cloudinary";
 const register = async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ message: "User Photo is Required" });
   }
   const { photo } = req.files;
-  const allowedFormats = ["jpg", "png"];
+  const allowedFormats = ["image/jpeg", "image/png", "image/webp"];
   if (!allowedFormats.includes(photo.mimetype)) {
     return res
       .status(400)
@@ -40,7 +40,7 @@ const register = async (req, res) => {
   });
   await newuser.save();
   if (newuser) {
-    res.status(400).json({ message: "user registerd successfully" });
+    res.status(400).json({ message: "user registerd successfully", newuser });
   }
 };
 
