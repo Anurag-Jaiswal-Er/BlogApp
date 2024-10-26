@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.routes.js";
+import blogroute from "./routes/blog.routes.js";
+import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { v2 as cloudinary } from "cloudinary";
 const app = express();
@@ -11,6 +13,7 @@ const MongodbUlr = process.env.MONGODB_URL;
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 // fileupload
 app.use(
   fileUpload({
@@ -32,6 +35,7 @@ app.get("/", (req, res) => {
 // define Route
 
 app.use("/api/users", userRoute);
+app.use("/api/blogs", blogroute);
 
 // CLOUDINARY
 // Configuration

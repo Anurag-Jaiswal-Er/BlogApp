@@ -24,7 +24,7 @@ const register = async (req, res) => {
       !role ||
       !photo
     ) {
-      return req
+      return res
         .status(400)
         .json({ message: "Please fill the Required Field" });
     }
@@ -91,6 +91,7 @@ export const login = async (req, res) => {
     }
 
     const token = await CreateTokenAndSaveCookies(user._id, res);
+    console.log("Login", token);
     res.status(200).json({
       message: "User logged in successsfully",
       user: {
@@ -105,6 +106,25 @@ export const login = async (req, res) => {
     console.log("error");
     return res.status(500).json({ message: "Interal server Error" });
   }
+};
+
+export const logout = (req, res) => {
+  try {
+    res.clearCookie("jwt", { httpOnly: true });
+    res.status(200).json({ message: "User logged Out successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+export const myProfile = async (req, res) => {
+  const user = await req.user;
+  res.status(200).json(user);
+};
+
+export const getAdmins = async (req, res) => {
+  const admins = await User.find({ role: "admin" });
+  res.status(200).json(admins);
 };
 
 export default register;
