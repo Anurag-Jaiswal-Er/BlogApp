@@ -15,13 +15,6 @@ const MongodbUlr = process.env.MONGODB_URL;
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
 // fileupload
 app.use(
   fileUpload({

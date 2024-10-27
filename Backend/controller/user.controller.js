@@ -89,9 +89,8 @@ export const login = async (req, res) => {
     if (user.role !== role) {
       return res.status(400).json({ message: `Given role ${role} not found` });
     }
-
     const token = await CreateTokenAndSaveCookies(user._id, res);
-    console.log("Login", token);
+    console.log("Setting cookie on server:", token);
     res.status(200).json({
       message: "User logged in successsfully",
       user: {
